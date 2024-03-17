@@ -24,7 +24,22 @@ def max_score(scores, list_words):
             max_score=score(list_words[i])
     return word,max_score
 
-#print(max_score(scores,['rte', 'ver', 'ce', 'etc', 'cet', 'ex', 'cr', 'et', 'ter', 'te', 'ct']))
+print(max_score(scores,['rte', 'ver', 'ce', 'etc', 'cet', 'ex', 'cr', 'et', 'ter', 'te', 'ct']))
     
 #exercise 4
+def letters_list(string):
+    draw=[]
+    for letter in string:
+        draw.append(letter)
+    return draw
+#print(letters_list('zxcvrrt?'))
 
+letters=letters_list('zxcvrrt?')
+
+available_words=[]
+file= open('mots.sansaccent.txt','r')
+for ligne in file:
+     available_words.append(ligne[0:len(ligne)-1])
+file.close()
+
+        
