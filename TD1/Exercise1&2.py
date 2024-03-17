@@ -5,14 +5,20 @@ possible_words = ['sacre', 'sabre', 'baser', 'cabre', 'garce', 'crase', 'brase',
 def longest_word(draw,possible_words):
     word=possible_words[0]
     n=len(possible_words)
+    available = {} #one use per letter of draw
+    for letter in draw :
+        if letter in available:
+             available[letter]+=1
+        available[letter]=1
     for i in range (1,n):
         if len (possible_words[i]) > len(word):
             for letters in possible_words[i]:
-                if letters in draw:
+                if available[letter]>=1:
+                        available[letter]-=1
                         word=possible_words[i]
     return word
 
-#print(longest_word(draw,possible_words))
+print(longest_word(draw,possible_words))
 
 #Exercise 2
 available_words=[]
@@ -22,4 +28,5 @@ for ligne in file:
 file.close()
 
 #print (available_words)
-#print(longest_word(draw,available_words))
+print(longest_word(draw,available_words))
+
