@@ -11,14 +11,14 @@ class Fraction:
         return '(%s/%s)'%(self.__numerator, self.__denominator)
 
     def __add__(self, other):
-        self.__numerator=self.__numerator * other.__denominator + other.__numerator*self.__denominator
-        self.__denominator= self.__denominator*other.__denominator
-        return '(%s/%s)'%(self.__numerator,self.__denominator)
+        new_numerator=self.__numerator * other.__denominator + other.__numerator*self.__denominator
+        new_denominator= self.__denominator*other.__denominator
+        return '(%s/%s)'%(new_numerator,new_denominator)
 
     def __mult__(self,other):
-        self.__numerator=self.__numerator*other.__numerator 
-        self.__denominator=self.__denominator*other.__denominator
-        return '(%s/%s)'%(self.__numerator,self.__denominator)
+        new_numerator=self.__numerator*other.__numerator 
+        new_denominator=self.__denominator*other.__denominator
+        return '(%s/%s)'%(new_numerator,new_denominator)
     
     def __eq__(self, other):
         if self.__numerator==other.__denominator:
@@ -33,8 +33,19 @@ class Fraction:
     
 if __name__=='__main__':
 
+    #test1 - test fraction
     fraction = Fraction(1,2)
     print(fraction) 
+    
+    #test2- test addition
+    fraction1= Fraction(3,4)
+    fraction2= Fraction(1,2)
+    sum_fraction= fraction1.__add__(fraction2)
+    print ("Addition :", sum_fraction)
+
+    #test3 - test multiplication
+    mult_fraction= fraction1.__mult__(fraction2)
+    print ("Multiplication :", mult_fraction)
 
 #Exercise2
 
