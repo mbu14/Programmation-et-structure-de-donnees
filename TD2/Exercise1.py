@@ -3,7 +3,7 @@
 class Fraction:
     def __init__(self, numerator, denominator):
         if denominator==0:
-            raise ValueError ("denominor must be nonzero")
+            raise ValueError ("denominator must be nonzero")
         self.__numerator = numerator
         self.__denominator = denominator
 
@@ -26,10 +26,19 @@ class Fraction:
         return False
     
     def __pgcd__(self):
+        a=self.__numerator
+        b=self.__denominator
         if self.__numerator==0:
-            return '(%s/%s)'%(other.__numerator,other.__denominator)
-        r=self.__numerator%self.__denominator
-        return __pgcd__(r)
+            return '(%s/%s)'%(self.__numerator,otselfher.__denominator)
+        while b:
+            a, b = b, a % b
+        return a
+    
+    def __simplify__(self):
+        diviseur= self.__pgcd__()
+        new_numerator= self.__numerator/diviseur
+        new_denominator= self.__denominator/diviseur
+        return '(%s/%s)'%(new_numerator,new_denominator)
     
 if __name__=='__main__':
 
@@ -46,6 +55,11 @@ if __name__=='__main__':
     #test3 - test multiplication
     mult_fraction= fraction1.__mult__(fraction2)
     print ("Multiplication :", mult_fraction)
+
+    #test4 - test pgcd
+    fraction3 = Fraction(8,10)
+    simplified = fraction3.__simplify__()
+    print("simplify fraction : ", simplified)
 
 #Exercise2
 
