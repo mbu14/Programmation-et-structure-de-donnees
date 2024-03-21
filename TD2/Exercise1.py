@@ -1,4 +1,4 @@
-#Exercise1
+#Exercise1&2
 
 class Fraction:
     def __init__(self, numerator, denominator):
@@ -40,6 +40,12 @@ class Fraction:
         new_denominator= self.__denominator/diviseur
         return '(%s/%s)'%(new_numerator,new_denominator)
     
+    def __suite_harmonique__(self=1, n=10000):
+        somme=self
+        for i in range (2,n+1):
+            somme = somme.__add__(somme)
+        return somme.__simplify__()
+    
 if __name__=='__main__':
 
     #test1 - test fraction
@@ -61,5 +67,8 @@ if __name__=='__main__':
     simplified = fraction3.__simplify__()
     print("simplify fraction : ", simplified)
 
-#Exercise2
+    #test5 - suite harmonique
+    result= __suite_harmonique__()
+    print(result)
+#Exercise3
 
