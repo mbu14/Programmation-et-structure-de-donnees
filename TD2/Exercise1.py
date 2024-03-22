@@ -40,11 +40,11 @@ class Fraction:
         new_denominator= self.__denominator/diviseur
         return '(%s/%s)'%(new_numerator,new_denominator)
     
-    def __suite_harmonique__(self=1, n=10000):
-        somme=self
-        for i in range (2,n+1):
-            somme = somme.__add__(somme)
-        return somme.__simplify__()
+    def __calculate_H__(self, n):
+        sum_fraction = Fraction(0, 1)
+        for i in range(1, n + 1):
+            sum_fraction = sum_fraction.__add__(Fraction(1, i))
+        return sum_fraction
     
 if __name__=='__main__':
 
@@ -68,7 +68,9 @@ if __name__=='__main__':
     print("simplify fraction : ", simplified)
 
     #test5 - suite harmonique
-    result= __suite_harmonique__()
-    print(result)
+    fraction_instance = Fraction(0, 1)
+    H_10000 = fraction_instance.__calculate_H__(10000)
+    print(f"H(10000) = {H_10000.numerator / H_10000.denominator:.5f}")
+
 #Exercise3
 
