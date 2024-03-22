@@ -9,16 +9,19 @@ class Fraction:
 
     def __str__(self):
         return '(%s/%s)'%(self.__numerator, self.__denominator)
+    
+    def show(self):
+        return '(%s/%s)'%(self.__numerator, self.__denominator)
 
     def __add__(self, other):
         new_numerator=self.__numerator * other.__denominator + other.__numerator*self.__denominator
         new_denominator= self.__denominator*other.__denominator
-        return '(%s/%s)'%(new_numerator,new_denominator)
+        return Fraction(new_numerator,new_denominator)
 
     def __mult__(self,other):
         new_numerator=self.__numerator*other.__numerator 
         new_denominator=self.__denominator*other.__denominator
-        return '(%s/%s)'%(new_numerator,new_denominator)
+        return Fraction(new_numerator,new_denominator)
     
     def __eq__(self, other):
         if self.__numerator==other.__denominator:
@@ -29,7 +32,7 @@ class Fraction:
         a=self.__numerator
         b=self.__denominator
         if self.__numerator==0:
-            return '(%s/%s)'%(self.__numerator,otselfher.__denominator)
+            return '(%s/%s)'%(self.__numerator,self.__denominator)
         while b:
             a, b = b, a % b
         return a

@@ -1,0 +1,87 @@
+class Fraction:
+    def __init__(self, numerator, denominator):
+        if denominator == 0:
+            raise ValueError("Denominator must be nonzero")
+        self.__numerator = numerator
+        self.__denominator = denominator
+        self.simplify()
+
+    def __str__(self):
+        return '(%s/%s)' % (self.__numerator, self.__denominator)
+
+    def __add__(self, other):
+        numerator = self.__numerator * other.__denominator + other.__numerator * self.__denominator
+        denominator = self.__denominator * other.__denominator
+        return Fraction(numerator, denominator)
+
+    def __mul__(self, other):
+        numerator = self.__numerator * other.__numerator
+        denominator = self.__denominator * other.__denominator
+        return Fraction(numerator, denominator)
+
+    def __eq__(self, other):
+        return self.__numerator == other.__numerator and self.__denominator == other.__denominator
+
+    def pgcd(self, a, b):
+        while b:
+            a, b = b, a % b
+        return a
+
+    def simplify(self):
+        common_divisor = self.pgcd(self.__numerator, self.__denominator)
+        self.__numerator //= common_divisor
+        self.__denominator //= common_divisor
+
+    @property
+    def numerator(self):
+        return self.__numerator
+
+    @property
+    def denominator(self):
+        return self.__denominator
+
+    def calculate_H(self, n):
+        sum_fraction = Fraction(0, 1)
+        for i in range(1, n + 1):
+            sum_fraction = sum_fraction.__add__(Fraction(1, i))
+        return sum_fraction
+    
+    def calculate_Leibniz(self,n):
+        sum_leibniz = Fraction(0, 1)
+        for i in range(1, n + 1):
+            sum_leibniz = sum_leibniz.__add__(Fraction(1, 2*(-i)**(i+1)))
+        return sum_leibniz
+
+if __name__ == '__main__':
+    fraction1 = Fraction(1, 2)
+    fraction2 = Fraction(3, 4)
+
+    print("Fraction 1:", fraction1)
+    print("Fraction 2:", fraction2)
+
+    # Test d'addition
+    sum_fraction = fraction1 + fraction2
+    print("Sum:", sum_fraction)
+
+    # Test de multiplication
+    product_fraction = fraction1 * fraction2
+    print("Product:", product_fraction)
+
+    # Test d'égalité
+    print("Are fractions equal?", fraction1 == fraction2)
+
+    # Accéder aux numérateurs et dénominateurs
+    print("Numerator of fraction 1:", fraction1.numerator)
+    print("Denominator of fraction 1:", fraction1.denominator)
+    print("Numerator of fraction 2:", fraction2.numerator)
+    print("Denominator of fraction 2:", fraction2.denominator)
+
+    # Calcul de la somme harmonique H(10000)
+    fraction_instance = Fraction(0, 1)
+    H_10000 = fraction_instance.calculate_H(10000)
+    print(f"H(10000) = {H_10000.numerator / H_10000.denominator:.5f}")
+
+    # Calcul de la somme harmonique H(10000)
+    fraction_instance2 = Fraction(0, 1)
+    Leibniz= fraction_instance2.calculate_Leibniz(10000)
+    print(f"H(10000) = {H_10000.numerator / H_10000.denominator:.5f}")
