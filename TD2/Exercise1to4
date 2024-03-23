@@ -4,7 +4,7 @@ class Fraction:
             raise ValueError("Denominator must be nonzero")
         self.__numerator = numerator
         self.__denominator = denominator
-        self.simplify()
+        self.__simplify__()
 
     def __str__(self):
         return '(%s/%s)' % (self.__numerator, self.__denominator)
@@ -14,7 +14,7 @@ class Fraction:
         denominator = self.__denominator * other.__denominator
         return Fraction(numerator, denominator)
 
-    def __mul__(self, other):
+    def __mult__(self, other):
         numerator = self.__numerator * other.__numerator
         denominator = self.__denominator * other.__denominator
         return Fraction(numerator, denominator)
@@ -22,13 +22,13 @@ class Fraction:
     def __eq__(self, other):
         return self.__numerator == other.__numerator and self.__denominator == other.__denominator
 
-    def pgcd(self, a, b):
+    def __pgcd__(self, a, b):
         while b:
             a, b = b, a % b
         return a
 
-    def simplify(self):
-        common_divisor = self.pgcd(self.__numerator, self.__denominator)
+    def __simplify__(self):
+        common_divisor = self.__pgcd__(self.__numerator, self.__denominator)
         self.__numerator //= common_divisor
         self.__denominator //= common_divisor
 
@@ -45,22 +45,24 @@ class Fraction:
         for i in range(1, n + 1):
             sum_fraction = sum_fraction.__add__(Fraction(1, i))
         return sum_fraction
+        
+    def calculate_Leibniz_formula(self, n):
+        result = Fraction(0, 1)
+        sign = 1
+        for i in range(1, n + 1, 2): #step of 2
+            result += Fraction(sign, i)
+            sign *= -1 #sign changing
+        return result
     
-    def calculate_Leibniz(self,n):
-        sum_leibniz = Fraction(0, 1)
-        for i in range(1, n + 1):
-            sum_leibniz = sum_leibniz.__add__(Fraction(1, 2*(-i)**(i+1)))
-        return sum_leibniz
-
 if __name__ == '__main__':
     fraction1 = Fraction(1, 2)
     fraction2 = Fraction(3, 4)
-
+    
     print("Fraction 1:", fraction1)
     print("Fraction 2:", fraction2)
 
     # Test d'addition
-    sum_fraction = fraction1 + fraction2
+    sum_fraction = fraction1.__add__(fraction2) 
     print("Sum:", sum_fraction)
 
     test1= Fraction(1,2)
@@ -69,9 +71,14 @@ if __name__ == '__main__':
     assert test3 == test2.__add__(test1)
 
     # Test de multiplication
-    product_fraction = fraction1 * fraction2
+    product_fraction = fraction1.__mult__(fraction2)
     print("Product:", product_fraction)
+    assert test1==test2.__mult__(test3)
 
+    # Test de simplifaction 
+    test4=Fraction(2,4) 
+    assert test1==test4 #le simplify est inclus dans le __init__
+    
     # Test d'égalité
     print("Are fractions equal?", fraction1 == fraction2)
 
@@ -84,9 +91,8 @@ if __name__ == '__main__':
     # Calcul de la somme harmonique H(10000)
     fraction_instance = Fraction(0, 1)
     H_10000 = fraction_instance.calculate_H(10000)
-    #print(f"H(10000) = {H_10000.numerator / H_10000.denominator:.5f}")
+    print(f"H(10000) = {H_10000.numerator / H_10000.denominator:.5f}")
 
-    # Calcul de la somme harmonique H(10000)
-    fraction_instance2 = Fraction(0, 1)
-    Leibniz= fraction_instance2.calculate_Leibniz(1000)
-    #print(f"Leibniz = {Leibniz.numerator / Leibniz.denominator:.5f}")
+    # Calcul de la formule de Leibniz pour n=10000
+    leibniz_formula = fraction_instance.calculate_Leibniz_formula(10000)
+    print(f"Leibniz formula for n=10000: {leibniz_formula.numerator / leibniz_formula.denominator:.10f}")
