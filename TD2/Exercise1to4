@@ -1,3 +1,4 @@
+import math 
 class Fraction:
     def __init__(self, numerator, denominator):
         if denominator == 0:
@@ -95,4 +96,6 @@ if __name__ == '__main__':
 
     # Calcul de la formule de Leibniz pour n=10000
     leibniz_formula = fraction_instance.calculate_Leibniz_formula(10000)
-    print(f"Leibniz formula for n=10000: {leibniz_formula.numerator / leibniz_formula.denominator:.10f}")
+    pi_value=math.pi
+    print("value of pi/4 is :", pi_value/4)
+    print(f"With Leibniz formula for n=10000 we found an estimation of pi/4 : {leibniz_formula.numerator / leibniz_formula.denominator:.10f}")
